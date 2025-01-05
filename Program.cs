@@ -47,7 +47,7 @@ namespace Inventario
                                 int id = int.Parse(reader.GetString(0));
                                 string nombre = reader.GetString(1);
                                 int cant = int.Parse(reader.GetString(2));
-                                int precio = int.Parse(reader.GetString(3));
+                                decimal precio = decimal.Parse(reader.GetString(3));
 
                                 Producto prod = new Producto(id, nombre, cant, precio);
 
@@ -83,7 +83,7 @@ namespace Inventario
                         cmd.Parameters.Add(":id_producto", OracleDbType.Int32).Value = prod.Id;
                         cmd.Parameters.Add(":nombre", OracleDbType.Varchar2).Value = prod.Nombre;
                         cmd.Parameters.Add(":cantidad", OracleDbType.Int32).Value = prod.Cantidad;
-                        cmd.Parameters.Add(":precio", OracleDbType.Decimal).Value = prod.Cantidad;
+                        cmd.Parameters.Add(":precio", OracleDbType.Decimal).Value = prod.Precio;
                         cmd.ExecuteNonQuery();
                         Globales.listaProductos.Add(prod);
 
