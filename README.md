@@ -7,7 +7,7 @@
     - Crear, Leer, Actualizar y Eliminar registros
 - Los registros se almacenan en una tabla de productos dentro de una base de datos Oracle SQL.
 - Cada producto tiene un ID único, que actúa como clave primaria
-    - El sistema asigna automáticamente el número más pequeño disponible como nuevo ID al crear un producto
+    - El sistema asigna el número más pequeño disponible como nuevo ID al crear un producto
 
 ### Ejemplo de uso
 
