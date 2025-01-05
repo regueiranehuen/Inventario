@@ -22,8 +22,6 @@ namespace Inventario
 
         private void Form1_Load(object sender, EventArgs e)
         {
-            //Form form = sender as Form;
-            //this.CargarProductos();
             Globales.listaProductos.Clear();
             OperacionesListas.AgregarProductosALista();
 
@@ -39,10 +37,9 @@ namespace Inventario
         }
 
 
-        private void button1_Click(object sender, EventArgs e)
+        private void button1_Click(object sender, EventArgs e) // Botón para crear producto
         {
             int idProducto = CrearIdProducto();
-            MessageBox.Show($"Id producto creado: {idProducto}");
             string nombreProducto = Interaction.InputBox("Nombre producto:", "Datos del producto");
             int cantidad = int.Parse(Interaction.InputBox("Cantidad:", "Datos del producto"));
             decimal precio = decimal.Parse(Interaction.InputBox("Precio: ", "Datos del producto"));
@@ -55,6 +52,7 @@ namespace Inventario
 
         }
 
+        // El método devuelve el número más chico sin usarse para asignar como id
         int CrearIdProducto()
         {
 
@@ -64,10 +62,10 @@ namespace Inventario
             {
                 if (!ids.Contains(i))
                 {
-                    return i;
+                    return i; // Para los casos en los que hay un "espacio" entre ids (por ejemplo, id 2 sin usar teniendo id 1 e id 3 ocupados)
                 }
             }
-            return ids.Count();
+            return ids.Count(); // Si el índice recorrió toda la lista y no se encontró espacio entre ids, devolvemos el tamaño de la lista, convirtiéndose el nuevo ID en el más grande de todos
 
 
         }
@@ -75,12 +73,12 @@ namespace Inventario
 
 
 
-        private void button2_Click(object sender, EventArgs e)
+        private void button2_Click(object sender, EventArgs e) // Botón para obtener todos los productos contenidos en la BD
         {
             CargarProductos();
         }
 
-        private void button3_Click(object sender, EventArgs e)
+        private void button3_Click(object sender, EventArgs e) // Botón para buscar un producto
         {
             int idBuscado = int.Parse(Interaction.InputBox("Id del producto a buscar:", "Búsqueda del producto"));
             bool busquedaExitosa = BuscarProducto(idBuscado);
@@ -131,12 +129,11 @@ namespace Inventario
                         // Agregar el parámetro @idProducto para evitar inyecciones SQL
                         cmd.Parameters.Add(new OracleParameter(":idAEliminar", idAEliminar));
                         // Ejecutar la consulta y obtener el número de filas afectadas
-                        int rowsAffected = cmd.ExecuteNonQuery();
+                        int filasAfectadas = cmd.ExecuteNonQuery();
 
                         Globales.listaProductos.RemoveAll(p=>p.Id == idAEliminar);
 
-                        // Verificar cuántas filas fueron eliminadas
-                        if (rowsAffected > 0)
+                        if (filasAfectadas > 0)
                         {
                             return true;
                         }
@@ -156,7 +153,7 @@ namespace Inventario
             }
         }
 
-        private void button4_Click(object sender, EventArgs e)
+        private void button4_Click(object sender, EventArgs e) // Botón para eliminar producto
         {
             int idAEliminar = int.Parse(Interaction.InputBox("Id del producto a eliminar:", "Eliminación del producto"));
             bool eliminacionConfirmada = EliminarProducto(idAEliminar);
@@ -170,11 +167,12 @@ namespace Inventario
             }
         }
 
-        private void button5_Click(object sender, EventArgs e)
+        // Método de modificación como combinación de buscar, eliminar y agregar
+        private void button5_Click(object sender, EventArgs e) // Botón para modificar producto
         {
             int idProdAModificar= int.Parse(Interaction.InputBox("Id del producto a modificar:", "Modificación del producto"));
             
-            if (BuscarProducto(idProdAModificar) && EliminarProducto(idProdAModificar))
+            if (BuscarProducto(idProdAModificar) && EliminarProducto(idProdAModificar)) 
             {
                 string nombreProducto = Interaction.InputBox("Nombre producto:", "Modificación del producto");
                 int cantidad = int.Parse(Interaction.InputBox("Cantidad:", "Modificación del producto"));

@@ -59,14 +59,12 @@ namespace Inventario
                 MessageBox.Show($"Error: {ex.Message}");
             }
 
-            //return listaProductos;
         }
 
     }
 
     public static class DatabaseHelper
     {
-        // Método para agregar un producto
         public static void AgregarProducto(Producto prod)
         {
             using (OracleConnection conn = new OracleConnection(Globales.connectionString))
@@ -127,6 +125,7 @@ namespace Inventario
         }
     }
 
+    // Clase para instanciar productos
     public class Producto
     {
         public int Id { get; set; }
