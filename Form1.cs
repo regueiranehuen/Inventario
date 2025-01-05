@@ -24,6 +24,7 @@ namespace Inventario
         {
             //Form form = sender as Form;
             //this.CargarProductos();
+            Globales.listaProductos.Clear();
             OperacionesListas.AgregarProductosALista();
 
         }
@@ -41,7 +42,7 @@ namespace Inventario
         private void button1_Click(object sender, EventArgs e)
         {
             int idProducto = CrearIdProducto();
-
+            MessageBox.Show($"Id producto creado: {idProducto}");
             string nombreProducto = Interaction.InputBox("Nombre producto:", "Datos del producto");
             int cantidad = int.Parse(Interaction.InputBox("Cantidad:", "Datos del producto"));
             decimal precio = decimal.Parse(Interaction.InputBox("Precio: ", "Datos del producto"));
@@ -61,7 +62,7 @@ namespace Inventario
 
             for (int i = 0; i < ids.Count; i++)
             {
-                if (i != ids[i])
+                if (!ids.Contains(i))
                 {
                     return i;
                 }
@@ -71,17 +72,8 @@ namespace Inventario
 
         }
 
-        private bool IndiceEnLista(int indice, List<int> lista)
-        {
-            for (int i = 0; i < lista.Count(); i++)
-            {
-                if (i == indice)
-                {
-                    return true;
-                }
-            }
-            return false;
-        }
+
+
 
         private void button2_Click(object sender, EventArgs e)
         {
@@ -170,7 +162,7 @@ namespace Inventario
             bool eliminacionConfirmada = EliminarProducto(idAEliminar);
             if (eliminacionConfirmada)
             {
-                MessageBox.Show("Producto eliminado con éxito (tras obtener productos ya no estará)");
+                MessageBox.Show("Producto eliminado con éxito (actualizar tabla para ver el cambio)");
             }
             else
             {
@@ -200,5 +192,6 @@ namespace Inventario
             }
 
         }
+
     }
 }

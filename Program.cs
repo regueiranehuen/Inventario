@@ -92,12 +92,12 @@ namespace Inventario
                 }
                 
             }
-            //ObtenerProductos();
+
         }
 
-        // Método para obtener productos
         public static DataTable ObtenerProductos()
         {
+
             using (OracleConnection conn = new OracleConnection(Globales.connectionString))
             {
                 conn.Open();
@@ -107,29 +107,6 @@ namespace Inventario
                 {
                     DataTable table = new DataTable();
                     adapter.Fill(table);
-
-                   
-
-                    // Leer un archivo SQL y ejecutar una consulta (opcional)
-                    string filePath = "C:\\Users\\nehue\\Escritorio\\Programacion\\ProyectosDesktopApps\\Inventario\\Statements\\ContarFilas.sql"; // Ruta al archivo SQL
-                    if (File.Exists(filePath))
-                    {
-                        string queryFromFile = File.ReadAllText(filePath);
-                        using (OracleCommand cmd2 = new OracleCommand(queryFromFile, conn))
-                        {
-                            //Globales.id_producto = Convert.ToInt32(cmd2.ExecuteScalar());
-                            int cantProductos = Convert.ToInt32(cmd2.ExecuteScalar());
-
-                            //MessageBox.Show($"Cantidad de productos: {cantProductos}");
-                        }
-
-                    }
-                    else
-                    {
-                        //MessageBox.Show("PINGO");
-                    }
-
-
                     return table;
                 }
             }
@@ -164,12 +141,6 @@ namespace Inventario
             Nombre = nombre;
             Precio = precio;
             Cantidad = cantidad;
-        }
-
-        // Método para imprimir el objeto como texto
-        public override string ToString()
-        {
-            return $"Id: {Id}, Nombre: {Nombre}, Precio: {Precio}, Cantidad: {Cantidad}";
         }
     }
 }
