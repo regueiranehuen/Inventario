@@ -25,28 +25,7 @@ namespace Inventario
         public static void AgregarProductosALista()
         {
             
-            /*foreach (DataGridViewRow row in dgv.Rows)
-            {
-                // Asegúrate de que la fila no sea la fila de entrada nueva (vacía)
-                if (!row.IsNewRow)
-                {
-                    // Obtener el valor de la celda 0 (primera celda) de la fila
-                    int id = int.Parse(row.Cells[0].Value.ToString());
-
-                    string nombre = (row.Cells[1].Value.ToString());
-                    int cant = int.Parse(row.Cells[2].Value.ToString());
-                    int precio = int.Parse(row.Cells[3].Value.ToString());
-
-                    Producto prod = new Producto(id, nombre, cant, precio);
-
-                    //if (!IndiceEnListaIds(valorCelda))
-
-                    if (Globales.listaProductos.Find(p => p.Id == id)!=null)
-                        Globales.listaProductos.Add(prod);
-                }
-            }*/
-
-            // Cadena de conexión (ajusta según tu servidor y base de datos)
+      
 
             // Consulta SQL
             string query = "SELECT id_producto, nombre, cantidad, precio FROM TABLA_PRODUCTOS";
@@ -71,7 +50,6 @@ namespace Inventario
                                 int precio = int.Parse(reader.GetString(3));
 
                                 Producto prod = new Producto(id, nombre, cant, precio);
-                                //Producto producto = new Producto(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetDecimal(2));
 
                                 Globales.listaProductos.Add(prod);
                             }

@@ -28,6 +28,14 @@ namespace Inventario
         }
         private void CargarProductos()
         {
+            dataGridView1.DataSource = null;  // Desvincula cualquier origen de datos
+            dataGridView1.Columns.Clear();
+            dataGridView1.Rows.Clear();
+            dataGridView1.Columns.Add("id_producto", "ID_PRODUCTO");
+            dataGridView1.Columns.Add("nombre", "NOMBRE");
+            dataGridView1.Columns.Add("cantidad", "CANTIDAD");
+            dataGridView1.Columns.Add("precio", "PRECIO");
+            //dataGridView1.Rows.Add(prod.Id, prod.Nombre, prod.Cantidad, prod.Precio);
             dataGridView1.DataSource = DatabaseHelper.ObtenerProductos();
             //OperacionesListas.AgregarProductosALista(dataGridView1);
         }
@@ -52,33 +60,6 @@ namespace Inventario
 
         int CrearIdProducto()
         {
-
-            /*foreach (DataGridViewRow row in dataGridView1.Rows)
-            {
-                // Asegúrate de que la fila no sea la fila de entrada nueva (vacía)
-                if (!row.IsNewRow)
-                {
-                    // Obtener el valor de la celda 0 (primera celda) de la fila
-                    var valorCeldaSQL = row.Cells[0].Value.ToString();
-
-                    int valorCelda = int.Parse(valorCeldaSQL);
-
-                    //if (!IndiceEnListaIds(valorCelda))
-                        Globales.listaIdsProductos.Add(valorCelda);
-                }
-            }
-
-            for (int i = 0; i < Globales.listaIdsProductos.Count(); i++)
-            {
-                if (!IndiceEnListaIds(i))
-                {
-                    return i;
-                }
-            }*/
-
-
-
-            //return Globales.listaIdsProductos.Count();
 
             List<int> ids = Globales.listaProductos.Select(p => p.Id).ToList();
 
@@ -111,8 +92,25 @@ namespace Inventario
 
         private void button3_Click(object sender, EventArgs e)
         {
+            int idBuscado = int.Parse(Interaction.InputBox("Id del producto a buscar:", "Búsqueda del producto"));
 
-        
+            Producto prod = Globales.listaProductos.Find(p=>p.Id == idBuscado);
+
+            if (prod != null)
+            {
+                dataGridView1.DataSource = null;  // Desvincula cualquier origen de datos
+                dataGridView1.Columns.Clear();
+                dataGridView1.Rows.Clear();
+                dataGridView1.Columns.Add("id_producto", "ID_PRODUCTO");
+                dataGridView1.Columns.Add("nombre", "NOMBRE");
+                dataGridView1.Columns.Add("cantidad", "CANTIDAD");
+                dataGridView1.Columns.Add("precio", "PRECIO");
+                dataGridView1.Rows.Add(prod.Id,prod.Nombre,prod.Cantidad,prod.Precio);
+            }
+            else
+            {
+                MessageBox.Show("El producto buscado no se encuentra en la base de datos");
+            }
 
         }
 
