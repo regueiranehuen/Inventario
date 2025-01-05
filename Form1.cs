@@ -31,10 +31,10 @@ namespace Inventario
             dataGridView1.DataSource = null;  // Desvincula cualquier origen de datos
             dataGridView1.Columns.Clear();
             dataGridView1.Rows.Clear();
-            dataGridView1.Columns.Add("id_producto", "ID_PRODUCTO");
+            /*dataGridView1.Columns.Add("id_producto", "ID_PRODUCTO");
             dataGridView1.Columns.Add("nombre", "NOMBRE");
             dataGridView1.Columns.Add("cantidad", "CANTIDAD");
-            dataGridView1.Columns.Add("precio", "PRECIO");
+            dataGridView1.Columns.Add("precio", "PRECIO");*/
             //dataGridView1.Rows.Add(prod.Id, prod.Nombre, prod.Cantidad, prod.Precio);
             dataGridView1.DataSource = DatabaseHelper.ObtenerProductos();
             //OperacionesListas.AgregarProductosALista(dataGridView1);

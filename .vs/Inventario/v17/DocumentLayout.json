@@ -3,11 +3,11 @@
   "WorkspaceRootPath": "C:\\Users\\nehue\\Escritorio\\Programacion\\ProyectosDesktopApps\\Inventario\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{6CA940F5-A2C5-484E-A54E-F45E9463783A}|Inventario.csproj|C:\\Users\\nehue\\Escritorio\\Programacion\\ProyectosDesktopApps\\Inventario\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6CA940F5-A2C5-484E-A54E-F45E9463783A}|Inventario.csproj|c:\\users\\nehue\\escritorio\\programacion\\proyectosdesktopapps\\inventario\\form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6CA940F5-A2C5-484E-A54E-F45E9463783A}|Inventario.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6CA940F5-A2C5-484E-A54E-F45E9463783A}|Inventario.csproj|c:\\users\\nehue\\escritorio\\programacion\\proyectosdesktopapps\\inventario\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6CA940F5-A2C5-484E-A54E-F45E9463783A}|Inventario.csproj|C:\\Users\\nehue\\Escritorio\\Programacion\\ProyectosDesktopApps\\Inventario\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6CA940F5-A2C5-484E-A54E-F45E9463783A}|Inventario.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
@@ -15,7 +15,7 @@
       "RelativeMoniker": "D:0:0:{6CA940F5-A2C5-484E-A54E-F45E9463783A}|Inventario.csproj|solutionrelative:form1.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}|Form"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{6CA940F5-A2C5-484E-A54E-F45E9463783A}|Inventario.csproj|c:\\users\\nehue\\escritorio\\programacion\\proyectosdesktopapps\\inventario\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{6CA940F5-A2C5-484E-A54E-F45E9463783A}|Inventario.csproj|C:\\Users\\nehue\\Escritorio\\Programacion\\ProyectosDesktopApps\\Inventario\\form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{6CA940F5-A2C5-484E-A54E-F45E9463783A}|Inventario.csproj|solutionrelative:form1.designer.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -38,8 +38,7 @@
               "RelativeToolTip": "Form1.Designer.cs",
               "ViewState": "AgIAAGsAAAAAAAAAAAAWwHwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-05T05:12:04.176Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-05T05:12:04.176Z"
             },
             {
               "$type": "Document",
@@ -49,7 +48,7 @@
               "RelativeDocumentMoniker": "Form1.cs",
               "ToolTip": "C:\\Users\\nehue\\Escritorio\\Programacion\\ProyectosDesktopApps\\Inventario\\Form1.cs",
               "RelativeToolTip": "Form1.cs",
-              "ViewState": "AgIAABQAAAAAAAAAAAAtwCMAAAA8AAAAAAAAAA==",
+              "ViewState": "AgIAABQAAAAAAAAAAAAtwCUAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-01-05T01:39:27.368Z",
               "EditorCaption": ""
@@ -64,8 +63,7 @@
               "RelativeToolTip": "Program.cs",
               "ViewState": "AgIAAFMAAAAAAAAAAAD4v2UAAAAgAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-03T04:40:12.783Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-01-03T04:40:12.783Z"
             },
             {
               "$type": "Document",
@@ -76,8 +74,7 @@
               "ToolTip": "C:\\Users\\nehue\\Escritorio\\Programacion\\ProyectosDesktopApps\\Inventario\\Form1.cs [Dise\u00F1o]",
               "RelativeToolTip": "Form1.cs [Dise\u00F1o]",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-03T04:14:06.451Z",
-              "EditorCaption": " [Dise\u00F1o]"
+              "WhenOpened": "2025-01-03T04:14:06.451Z"
             }
           ]
         }
