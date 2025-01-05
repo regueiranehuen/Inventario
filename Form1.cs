@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.VisualBasic;
+using Oracle.ManagedDataAccess.Client;
 
 namespace Inventario
 {
@@ -117,6 +118,46 @@ namespace Inventario
         private void button4_Click(object sender, EventArgs e)
         {
 
+            int idAEliminar= int.Parse(Interaction.InputBox("Id del producto a eliminar:", "Eliminación del producto"));
+            Producto prod = Globales.listaProductos.Find(p => p.Id == idAEliminar);
+
+            if (prod != null)
+            {
+                /*dataGridView1.DataSource = null;  // Desvincula cualquier origen de datos
+                dataGridView1.Columns.Clear();
+                dataGridView1.Rows.Clear();
+                dataGridView1.Columns.Add("id_producto", "ID_PRODUCTO");
+                dataGridView1.Columns.Add("nombre", "NOMBRE");
+                dataGridView1.Columns.Add("cantidad", "CANTIDAD");
+                dataGridView1.Columns.Add("precio", "PRECIO");*/
+                using (OracleConnection conn = new OracleConnection(Globales.connectionString))
+                {
+                    conn.Open();
+                    string query = "DELETE FROM tabla_productos WHERE id_producto = :idAEliminar";
+                    using (OracleCommand cmd = new OracleCommand(query, conn))
+                    {
+                        // Agregar el parámetro @idProducto para evitar inyecciones SQL
+                        cmd.Parameters.Add(new OracleParameter(":idAEliminar", idAEliminar));
+
+                        // Ejecutar la consulta y obtener el número de filas afectadas
+                        int rowsAffected = cmd.ExecuteNonQuery();
+
+                        // Verificar cuántas filas fueron eliminadas
+                        if (rowsAffected > 0)
+                        {
+                            MessageBox.Show("Producto eliminado con éxito");
+                        }
+                        else
+                        {
+                            MessageBox.Show("No se encontró el producto para eliminar/No se pudo eliminar el producto");
+                        }
+                    }
+                }
+            }
+            else
+            {
+                MessageBox.Show("El producto buscado no se encuentra en la base de datos");
+            }
         }
 
         private void button5_Click(object sender, EventArgs e)
