@@ -3,6 +3,7 @@ using System.Data;
 using System.IO;
 using Oracle.ManagedDataAccess.Client;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace Inventario
 {
@@ -13,6 +14,9 @@ namespace Inventario
 
 
         public static int id_producto = 0;
+
+        public static List<int> listaIdsProductos = new List<int>();
+
     }
 
     public static class DatabaseHelper
@@ -54,10 +58,11 @@ namespace Inventario
                     if (File.Exists(filePath))
                     {
                         string queryFromFile = File.ReadAllText(filePath);
-                        //string queryFromFile2 = "SELECT COUNT(*) AS total_filas\r\nFROM tabla_productos;";
                         using (OracleCommand cmd2 = new OracleCommand(queryFromFile, conn))
                         {
-                            Globales.id_producto = Convert.ToInt32(cmd2.ExecuteScalar());
+                            //Globales.id_producto = Convert.ToInt32(cmd2.ExecuteScalar());
+                            int cantProductos = Convert.ToInt32(cmd2.ExecuteScalar());
+                            MessageBox.Show($"Cantidad de productos: {cantProductos}");
                         }
 
                     }
@@ -66,7 +71,6 @@ namespace Inventario
                         MessageBox.Show("PINGO");
                     }
 
-                    MessageBox.Show($"Cantidad de productos: {Globales.id_producto}");
 
                     return table;
                 }

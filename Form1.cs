@@ -7,6 +7,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Microsoft.VisualBasic;
 
 namespace Inventario
 {
@@ -30,11 +31,60 @@ namespace Inventario
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Producto prod = new Producto(Globales.id_producto, "producto_prueba", 30, 2);
+
+            Globales.id_producto = CrearIdProducto();
+
+            string nombreProducto = Interaction.InputBox("Nombre producto:", "Datos del producto");
+            int cantidad = int.Parse(Interaction.InputBox("Cantidad:", "Datos del producto"));
+            int precio = int.Parse(Interaction.InputBox("Precio: ", "Datos del producto"));
+
+            Producto prod = new Producto(Globales.id_producto, nombreProducto, cantidad, precio);
             
 
-            DatabaseHelper.AgregarProducto(Globales.id_producto,prod.Nombre, prod.Cantidad, prod.Precio);
+            DatabaseHelper.AgregarProducto(prod.Id,prod.Nombre, prod.Cantidad, prod.Precio);
             MessageBox.Show("Producto agregado con éxito");
+
+        }
+
+        int CrearIdProducto()
+        {
+
+            foreach (DataGridViewRow row in dataGridView1.Rows)
+            {
+                // Asegúrate de que la fila no sea la fila de entrada nueva (vacía)
+                if (!row.IsNewRow)
+                {
+                    // Obtener el valor de la celda 0 (primera celda) de la fila
+                    var valorCeldaSQL = row.Cells[0].Value.ToString();
+
+                    int valorCelda = int.Parse(valorCeldaSQL);
+
+                    Globales.listaIdsProductos.Add(valorCelda);
+                }
+            }
+
+            for (int i = 0; i < Globales.listaIdsProductos.Count(); i++)
+            {
+                if (!IndiceEnListaIds(i))
+                {
+                    return i;
+                }
+            }
+
+            return Globales.listaIdsProductos.Count();
+
+        }
+
+        private bool IndiceEnListaIds(int indice)
+        {
+            for (int i = 0; i < Globales.listaIdsProductos.Count(); i++)
+            {
+                if (i == indice)
+                {
+                    return true;
+                }
+            }
+            return false;
         }
 
         private void button2_Click(object sender, EventArgs e)
