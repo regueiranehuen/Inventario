@@ -4,6 +4,7 @@ using System.IO;
 using Oracle.ManagedDataAccess.Client;
 using System.Windows.Forms;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace Inventario
 {
@@ -15,29 +16,108 @@ namespace Inventario
 
         public static int id_producto = 0;
 
-        public static List<int> listaIdsProductos = new List<int>();
+        public static List<Producto> listaProductos = new List<Producto>();
+
+    }
+
+    public static class OperacionesListas
+    {
+        public static void AgregarProductosALista()
+        {
+            
+            /*foreach (DataGridViewRow row in dgv.Rows)
+            {
+                // Asegúrate de que la fila no sea la fila de entrada nueva (vacía)
+                if (!row.IsNewRow)
+                {
+                    // Obtener el valor de la celda 0 (primera celda) de la fila
+                    int id = int.Parse(row.Cells[0].Value.ToString());
+
+                    string nombre = (row.Cells[1].Value.ToString());
+                    int cant = int.Parse(row.Cells[2].Value.ToString());
+                    int precio = int.Parse(row.Cells[3].Value.ToString());
+
+                    Producto prod = new Producto(id, nombre, cant, precio);
+
+                    //if (!IndiceEnListaIds(valorCelda))
+
+                    if (Globales.listaProductos.Find(p => p.Id == id)!=null)
+                        Globales.listaProductos.Add(prod);
+                }
+            }*/
+
+            // Cadena de conexión (ajusta según tu servidor y base de datos)
+
+            // Consulta SQL
+            string query = "SELECT id_producto, nombre, cantidad, precio FROM TABLA_PRODUCTOS";
+
+            try
+            {
+                // Abrir conexión y leer datos
+                using (OracleConnection conn = new OracleConnection(Globales.connectionString))
+                {
+                    conn.Open();
+
+                    using (OracleCommand command = new OracleCommand(query, conn))
+                    {
+                        using (OracleDataReader reader = command.ExecuteReader())
+                        {
+                            while (reader.Read())
+                            {
+
+                                int id = int.Parse(reader.GetString(0));
+                                string nombre = reader.GetString(1);
+                                int cant = int.Parse(reader.GetString(2));
+                                int precio = int.Parse(reader.GetString(3));
+
+                                Producto prod = new Producto(id, nombre, cant, precio);
+                                //Producto producto = new Producto(reader.GetInt32(0), reader.GetString(1), reader.GetInt32(2), reader.GetDecimal(2));
+
+                                Globales.listaProductos.Add(prod);
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Error: {ex.Message}");
+            }
+
+            //return listaProductos;
+        }
 
     }
 
     public static class DatabaseHelper
     {
         // Método para agregar un producto
-        public static void AgregarProducto(int id_producto, string nombre, int cantidad, decimal precio)
+        public static void AgregarProducto(Producto prod)
         {
             using (OracleConnection conn = new OracleConnection(Globales.connectionString))
             {
                 conn.Open();
-                string query = "INSERT INTO TABLA_PRODUCTOS (ID_PRODUCTO, NOMBRE, CANTIDAD, PRECIO) VALUES (:id_producto, :nombre, :cantidad, :precio)";
-                using (OracleCommand cmd = new OracleCommand(query, conn))
+                if (Globales.listaProductos.Find(p=>p.Id == prod.Id) == null)
                 {
-                    cmd.Parameters.Add(":id_producto", OracleDbType.Int32).Value = id_producto;
-                    cmd.Parameters.Add(":nombre", OracleDbType.Varchar2).Value = nombre;
-                    cmd.Parameters.Add(":cantidad", OracleDbType.Int32).Value = cantidad;
-                    cmd.Parameters.Add(":precio", OracleDbType.Decimal).Value = precio;
-                    cmd.ExecuteNonQuery();
+                    string query = "INSERT INTO TABLA_PRODUCTOS (ID_PRODUCTO, NOMBRE, CANTIDAD, PRECIO) VALUES (:id_producto, :nombre, :cantidad, :precio)";
+                    using (OracleCommand cmd = new OracleCommand(query, conn))
+                    {
+                        cmd.Parameters.Add(":id_producto", OracleDbType.Int32).Value = prod.Id;
+                        cmd.Parameters.Add(":nombre", OracleDbType.Varchar2).Value = prod.Nombre;
+                        cmd.Parameters.Add(":cantidad", OracleDbType.Int32).Value = prod.Cantidad;
+                        cmd.Parameters.Add(":precio", OracleDbType.Decimal).Value = prod.Cantidad;
+                        cmd.ExecuteNonQuery();
+                        Globales.listaProductos.Add(prod);
+
+                    }
                 }
+                else
+                {
+                    MessageBox.Show("Error: El producto ya se encuentra en la base de datos");
+                }
+                
             }
-            ObtenerProductos();
+            //ObtenerProductos();
         }
 
         // Método para obtener productos
@@ -53,6 +133,8 @@ namespace Inventario
                     DataTable table = new DataTable();
                     adapter.Fill(table);
 
+                   
+
                     // Leer un archivo SQL y ejecutar una consulta (opcional)
                     string filePath = "C:\\Users\\nehue\\Escritorio\\Programacion\\ProyectosDesktopApps\\Inventario\\Statements\\ContarFilas.sql"; // Ruta al archivo SQL
                     if (File.Exists(filePath))
@@ -62,13 +144,14 @@ namespace Inventario
                         {
                             //Globales.id_producto = Convert.ToInt32(cmd2.ExecuteScalar());
                             int cantProductos = Convert.ToInt32(cmd2.ExecuteScalar());
-                            MessageBox.Show($"Cantidad de productos: {cantProductos}");
+
+                            //MessageBox.Show($"Cantidad de productos: {cantProductos}");
                         }
 
                     }
                     else
                     {
-                        MessageBox.Show("PINGO");
+                        //MessageBox.Show("PINGO");
                     }
 
 
@@ -100,7 +183,7 @@ namespace Inventario
         public int Cantidad { get; set; }
 
         // Constructor
-        public Producto(int id, string nombre, decimal precio, int cantidad)
+        public Producto(int id, string nombre, int cantidad, decimal precio)
         {
             Id = id;
             Nombre = nombre;

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Linq;
 using System.Text;
@@ -22,10 +23,13 @@ namespace Inventario
         {
             //Form form = sender as Form;
             //this.CargarProductos();
+            OperacionesListas.AgregarProductosALista();
+
         }
         private void CargarProductos()
         {
             dataGridView1.DataSource = DatabaseHelper.ObtenerProductos();
+            //OperacionesListas.AgregarProductosALista(dataGridView1);
         }
 
 
@@ -41,7 +45,7 @@ namespace Inventario
             Producto prod = new Producto(Globales.id_producto, nombreProducto, cantidad, precio);
             
 
-            DatabaseHelper.AgregarProducto(prod.Id,prod.Nombre, prod.Cantidad, prod.Precio);
+            DatabaseHelper.AgregarProducto(prod);
             MessageBox.Show("Producto agregado con éxito");
 
         }
@@ -49,7 +53,7 @@ namespace Inventario
         int CrearIdProducto()
         {
 
-            foreach (DataGridViewRow row in dataGridView1.Rows)
+            /*foreach (DataGridViewRow row in dataGridView1.Rows)
             {
                 // Asegúrate de que la fila no sea la fila de entrada nueva (vacía)
                 if (!row.IsNewRow)
@@ -59,7 +63,8 @@ namespace Inventario
 
                     int valorCelda = int.Parse(valorCeldaSQL);
 
-                    Globales.listaIdsProductos.Add(valorCelda);
+                    //if (!IndiceEnListaIds(valorCelda))
+                        Globales.listaIdsProductos.Add(valorCelda);
                 }
             }
 
@@ -69,15 +74,27 @@ namespace Inventario
                 {
                     return i;
                 }
-            }
+            }*/
 
-            return Globales.listaIdsProductos.Count();
+
+
+            //return Globales.listaIdsProductos.Count();
+
+            List<int> ids = Globales.listaProductos.Select(p => p.Id).ToList();
+
+            for (int i = 0; i < ids.Count; i++)
+            {
+                if (!IndiceEnLista(i, ids))
+                    return i;
+            }
+            return ids.Count();
+
 
         }
 
-        private bool IndiceEnListaIds(int indice)
+        private bool IndiceEnLista(int indice, List<int> lista)
         {
-            for (int i = 0; i < Globales.listaIdsProductos.Count(); i++)
+            for (int i = 0; i < lista.Count(); i++)
             {
                 if (i == indice)
                 {
@@ -95,9 +112,16 @@ namespace Inventario
         private void button3_Click(object sender, EventArgs e)
         {
 
+        
+
         }
 
         private void button4_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void button5_Click(object sender, EventArgs e)
         {
 
         }
