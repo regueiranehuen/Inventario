@@ -5,13 +5,14 @@ using Oracle.ManagedDataAccess.Client;
 using System.Windows.Forms;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using System.Configuration;
 
 namespace Inventario
 {
     public static class Globales
     {
         // Cadena de conexión adaptada a Oracle
-        public static string connectionString = "User Id=Nehuen;Password=NomelaOracle33;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=FREEXDB)))";
+        public static string connectionString = ConfigurationManager.ConnectionStrings["CN_Local_Nehuen"].ConnectionString;
 
         public static List<Producto> listaProductos = new List<Producto>();
 
