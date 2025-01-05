@@ -32,26 +32,21 @@ namespace Inventario
             dataGridView1.DataSource = null;  // Desvincula cualquier origen de datos
             dataGridView1.Columns.Clear();
             dataGridView1.Rows.Clear();
-            /*dataGridView1.Columns.Add("id_producto", "ID_PRODUCTO");
-            dataGridView1.Columns.Add("nombre", "NOMBRE");
-            dataGridView1.Columns.Add("cantidad", "CANTIDAD");
-            dataGridView1.Columns.Add("precio", "PRECIO");*/
-            //dataGridView1.Rows.Add(prod.Id, prod.Nombre, prod.Cantidad, prod.Precio);
+
             dataGridView1.DataSource = DatabaseHelper.ObtenerProductos();
-            //OperacionesListas.AgregarProductosALista(dataGridView1);
+
         }
 
 
         private void button1_Click(object sender, EventArgs e)
         {
-
-            Globales.id_producto = CrearIdProducto();
+            int idProducto = CrearIdProducto();
 
             string nombreProducto = Interaction.InputBox("Nombre producto:", "Datos del producto");
             int cantidad = int.Parse(Interaction.InputBox("Cantidad:", "Datos del producto"));
             decimal precio = decimal.Parse(Interaction.InputBox("Precio: ", "Datos del producto"));
 
-            Producto prod = new Producto(Globales.id_producto, nombreProducto, cantidad, precio);
+            Producto prod = new Producto(idProducto, nombreProducto, cantidad, precio);
             
 
             DatabaseHelper.AgregarProducto(prod);
@@ -66,8 +61,10 @@ namespace Inventario
 
             for (int i = 0; i < ids.Count; i++)
             {
-                if (!IndiceEnLista(i, ids))
+                if (i != ids[i])
+                {
                     return i;
+                }
             }
             return ids.Count();
 

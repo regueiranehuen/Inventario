@@ -13,9 +13,6 @@ namespace Inventario
         // Cadena de conexión adaptada a Oracle
         public static string connectionString = "User Id=Nehuen;Password=NomelaOracle33;Data Source=(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(CONNECT_DATA=(SERVICE_NAME=FREEXDB)))";
 
-
-        public static int id_producto = 0;
-
         public static List<Producto> listaProductos = new List<Producto>();
 
     }
