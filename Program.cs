@@ -23,7 +23,7 @@ namespace Inventario
         public static void AgregarProductosALista()
         {
             
-      
+            
 
             // Consulta SQL
             string query = "SELECT id_producto, nombre, cantidad, precio FROM TABLA_PRODUCTOS";
@@ -106,6 +106,7 @@ namespace Inventario
                 {
                     DataTable table = new DataTable();
                     adapter.Fill(table);
+                    table.DefaultView.Sort = "id_producto ASC";
                     return table;
                 }
             }
