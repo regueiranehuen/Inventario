@@ -12,7 +12,7 @@ namespace Inventario
     public static class Globales
     {
         // Cadena de conexión adaptada a Oracle
-        public static string connectionString = ConfigurationManager.ConnectionStrings["CN_Local_Nehuen"].ConnectionString;
+        public static string connectionString = Environment.GetEnvironmentVariable("CONNSTRINGINVENTARIO");
 
         public static List<Producto> listaProductos = new List<Producto>();
 
